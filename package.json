@@ -9,6 +9,7 @@
     "node": "~4.2"
   },
   "scripts": {
+    "lint": "semistandard --fix \"**/*.js\"",
     "start": "node app.js",
     "monitor": "nodemon app.js",
     "deploy": "gcloud app deploy"
@@ -19,5 +20,8 @@
     "express": "^4.13.4",
     "debug": "^2.2.0",
     "sprintf-js": "^1.0.3"
+  },
+  "devDependencies": {
+    "semistandard": "^9.1.0"
   }
 }

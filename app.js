@@ -25,7 +25,6 @@ const NAME_ACTION = 'make_name';
 const COLOR_ARGUMENT = 'color';
 const NUMBER_ARGUMENT = 'number';
 
-
 // [START SillyNameMaker]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
@@ -33,13 +32,13 @@ app.post('/', function (req, res) {
   console.log('Request body: ' + JSON.stringify(req.body));
 
   // Make a silly name
-  function makeName(assistant) {
+  function makeName (assistant) {
     let number = assistant.getArgument(NUMBER_ARGUMENT);
     let color = assistant.getArgument(COLOR_ARGUMENT);
-    assistant.tell('Alright, your silly name is '
-      + color + ' ' + number
-      + '! I hope you like it. See you next time.');
-  };
+    assistant.tell('Alright, your silly name is ' +
+      color + ' ' + number +
+      '! I hope you like it. See you next time.');
+  }
 
   let actionMap = new Map();
   actionMap.set(NAME_ACTION, makeName);
