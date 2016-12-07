@@ -16,7 +16,7 @@ See the developer guide and release notes at [https://developers.google.com/acti
  1. Click on the project gear icon to see the project settings.
  1. Select "Export and Import".
  1. Select "Restore from zip". Follow the directions to restore.
- 1. Select the SillyNameMaker-Webhook.zip file in this repo.
+ 1. Select the SillyNameMaker.zip file in this repo.
  1. Deploy this app to your preferred hosting environment (we recommend Google App Engine).
  1. Set the "Fulfillment" webhook URL to the hosting URL.
  1. Make sure all domains are turned off.
