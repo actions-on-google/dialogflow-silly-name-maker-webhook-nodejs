@@ -15,6 +15,7 @@
 
 process.env.DEBUG = 'actions-on-google:*';
 let Assistant = require('actions-on-google').ApiAiAssistant;
+let Botmetrics = require('botmetrics');
 let express = require('express');
 let bodyParser = require('body-parser');
 
@@ -31,6 +32,7 @@ app.post('/', function (req, res) {
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
+  Botmetrics.track(req);
   // Make a silly name
   function makeName (assistant) {
     let number = assistant.getArgument(NUMBER_ARGUMENT);
