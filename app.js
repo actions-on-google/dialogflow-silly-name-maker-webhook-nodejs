@@ -15,6 +15,7 @@
 
 process.env.DEBUG = 'actions-on-google:*';
 let Assistant = require('actions-on-google').ApiAiAssistant;
+let Botmetrics = require('botmetrics');
 let express = require('express');
 let bodyParser = require('body-parser');
 
@@ -22,26 +23,46 @@ let app = express();
 app.use(bodyParser.json({type: 'application/json'}));
 
 const NAME_ACTION = 'make_name';
+const WELCOME_ACTION = 'input.welcome';
 const COLOR_ARGUMENT = 'color';
 const NUMBER_ARGUMENT = 'number';
 
 // [START SillyNameMaker]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
-  console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
   // Make a silly name
   function makeName (assistant) {
     let number = assistant.getArgument(NUMBER_ARGUMENT);
     let color = assistant.getArgument(COLOR_ARGUMENT);
-    assistant.tell('Alright, your silly name is ' +
-      color + ' ' + number +
-      '! I hope you like it. See you next time.');
+    if(number && color) {
+      let response = 'Alright, your silly name is ' +
+        color + ' ' + number +
+        '! I hope you like it. See you next time.';
+
+      // Set Bot answer to request body
+      req.body.result.fulfillment.speech = response
+
+      assistant.tell(response);
+    }
+
+    Botmetrics.track(req.body, function(err, response) {
+      console.log("err", err);
+    });
+  }
+
+  //You should make handlers for all intents even if some of them are handling by api.ai
+  //This needed for tracking
+  function welcome (assistant) {
+    Botmetrics.track(req.body, function(err, response) {
+      console.log("err", err);
+    });
   }
 
   let actionMap = new Map();
   actionMap.set(NAME_ACTION, makeName);
+  actionMap.set(WELCOME_ACTION, welcome);
 
   assistant.handleRequest(actionMap);
 });

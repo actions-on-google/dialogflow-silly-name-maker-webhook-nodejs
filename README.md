@@ -1,3 +1,7 @@
+# Botmetrics tracking preview
+
+![](http://i.imgur.com/wcYx4ZR.gif)
+
 # Actions on Google Silly Name Maker Sample using Node.js
 
 This is a super simple Action, built using API.AI and Node.js, to generate a
