@@ -29,10 +29,11 @@ const NUMBER_ARGUMENT = 'number';
 // [START SillyNameMaker]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
-  console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
-  Botmetrics.track(req);
+  Botmetrics.track(req.body, function(err, response) {
+    console.log("err", err);
+  });
   // Make a silly name
   function makeName (assistant) {
     let number = assistant.getArgument(NUMBER_ARGUMENT);
