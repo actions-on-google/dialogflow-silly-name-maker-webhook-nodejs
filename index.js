@@ -14,19 +14,14 @@
 'use strict';
 
 process.env.DEBUG = 'actions-on-google:*';
-let Assistant = require('actions-on-google').ApiAiAssistant;
-let express = require('express');
-let bodyParser = require('body-parser');
-
-let app = express();
-app.use(bodyParser.json({type: 'application/json'}));
+const Assistant = require('actions-on-google').ApiAiAssistant;
 
 const NAME_ACTION = 'make_name';
 const COLOR_ARGUMENT = 'color';
 const NUMBER_ARGUMENT = 'number';
 
 // [START SillyNameMaker]
-app.post('/', function (req, res) {
+exports.sillyNameMaker = (req, res) => {
   const assistant = new Assistant({request: req, response: res});
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
@@ -44,17 +39,5 @@ app.post('/', function (req, res) {
   actionMap.set(NAME_ACTION, makeName);
 
   assistant.handleRequest(actionMap);
-});
+};
 // [END SillyNameMaker]
-
-if (module === require.main) {
-  // [START server]
-  // Start the server
-  let server = app.listen(process.env.PORT || 8080, function () {
-    let port = server.address().port;
-    console.log('App listening on port %s', port);
-  });
-  // [END server]
-}
-
-module.exports = app;
