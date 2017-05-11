@@ -14,23 +14,23 @@
 'use strict';
 
 process.env.DEBUG = 'actions-on-google:*';
-const Assistant = require('actions-on-google').ApiAiAssistant;
+const App = require('actions-on-google').ApiAiApp;
 
 const NAME_ACTION = 'make_name';
 const COLOR_ARGUMENT = 'color';
 const NUMBER_ARGUMENT = 'number';
 
 // [START SillyNameMaker]
-exports.sillyNameMaker = (req, res) => {
-  const assistant = new Assistant({request: req, response: res});
-  console.log('Request headers: ' + JSON.stringify(req.headers));
-  console.log('Request body: ' + JSON.stringify(req.body));
+exports.sillyNameMaker = (request, response) => {
+  const app = new App({request, response});
+  console.log('Request headers: ' + JSON.stringify(request.headers));
+  console.log('Request body: ' + JSON.stringify(request.body));
 
   // Make a silly name
-  function makeName (assistant) {
-    let number = assistant.getArgument(NUMBER_ARGUMENT);
-    let color = assistant.getArgument(COLOR_ARGUMENT);
-    assistant.tell('Alright, your silly name is ' +
+  function makeName (app) {
+    let number = app.getArgument(NUMBER_ARGUMENT);
+    let color = app.getArgument(COLOR_ARGUMENT);
+    app.tell('Alright, your silly name is ' +
       color + ' ' + number +
       '! I hope you like it. See you next time.');
   }
@@ -38,6 +38,6 @@ exports.sillyNameMaker = (req, res) => {
   let actionMap = new Map();
   actionMap.set(NAME_ACTION, makeName);
 
-  assistant.handleRequest(actionMap);
+  app.handleRequest(actionMap);
 };
 // [END SillyNameMaker]
