@@ -1,4 +1,4 @@
-# Actions on Google Silly Name Maker Sample using Node.js
+# Actions on Google: Silly Name Maker Sample using Node.js
 
 This is a super simple Assistant app, built using API.AI and Node.js, to
 generate a silly name based on your lucky number and favorite color.
