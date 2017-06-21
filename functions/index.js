@@ -15,13 +15,14 @@
 
 process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
+const functions = require('firebase-functions');
 
 const NAME_ACTION = 'make_name';
 const COLOR_ARGUMENT = 'color';
 const NUMBER_ARGUMENT = 'number';
 
 // [START SillyNameMaker]
-exports.sillyNameMaker = (request, response) => {
+exports.sillyNameMaker = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
   console.log('Request headers: ' + JSON.stringify(request.headers));
   console.log('Request body: ' + JSON.stringify(request.body));
@@ -39,5 +40,5 @@ exports.sillyNameMaker = (request, response) => {
   actionMap.set(NAME_ACTION, makeName);
 
   app.handleRequest(actionMap);
-};
+});
 // [END SillyNameMaker]
