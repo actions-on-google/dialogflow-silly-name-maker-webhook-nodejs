@@ -23,4 +23,4 @@ app.intent('make_name', (conv, {color, number}) => {
     `I hope you like it. See you next time.`);
 });
 
-exports.sillyNameMaker = functions.https.onRequest(app);
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
